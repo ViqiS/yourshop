@@ -7,10 +7,60 @@ const Navbar = () => {
   const context = useContext(ShoppingCartContext)
   const activeStyle = 'underline underline-offset-4'
 
+  // Sign out
+  const signOut = localStorage.getItem('sign-out')
+  const parsedSignOut = JSON.parse(signOut)
+  const isUserSignOut = context.signOut || parsedSignOut
+
   const handleSignOut = () => {
     const stringifiedSignOut = JSON.stringify(true)
     localStorage.setItem('sign-out', stringifiedSignOut)
     context.setSignOut(true)
+  }
+
+  const renderView = () => {
+    if (isUserSignOut) {
+      return (
+        <li>
+          <NavLink
+            to="/sign-in"
+            className={({ isActive }) => isActive ? activeStyle : undefined }
+            onClick={() => handleSignOut()}>
+            Sign out
+          </NavLink>
+        </li>
+      )
+    } else {
+      return (
+        <>
+          <li className='text-black/60'>
+            mail@example.com
+          </li>
+          <li>
+            <NavLink
+              to='/my-orders'
+              className={({ isActive }) => isActive ? activeStyle : undefined}>
+              My Orders
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to='/my-account'
+              className={({ isActive }) => isActive ? activeStyle : undefined}>
+              My Account
+            </NavLink>
+        </li>
+        <li>
+            <NavLink
+              to='/sign-in'
+              className={({ isActive }) => isActive ? activeStyle : undefined}
+              onClick={() => handleSignOut()}>
+              Sign out
+            </NavLink>
+          </li>
+        </>
+      )
+    }
   }
 
   return (
@@ -83,37 +133,7 @@ const Navbar = () => {
         </li>
       </ul>
       <ul className='flex items-center gap-3'>
-        <li className='text-black/60'>
-          mail@ejemplo.com
-        </li>
-        <li>
-          <NavLink 
-            to='/my-orders'
-            className={({ isActive }) => 
-            isActive ? activeStyle : undefined
-          }>
-            My orders
-          </NavLink>
-        </li>
-        <li>
-          <NavLink 
-            to='/my-account'
-            className={({ isActive }) => 
-            isActive ? activeStyle : undefined
-          }>
-            My account
-          </NavLink>
-        </li>
-        <li>
-          <NavLink 
-            to='/sign-in'
-            className={({ isActive }) => 
-            isActive ? activeStyle : undefined
-          }
-          onClick={() => handleSignOut()}>
-            Sign out
-          </NavLink>
-        </li>
+        {renderView()}
         <li 
         className='flex items-center cursor-pointer'
         onClick={(event) => {

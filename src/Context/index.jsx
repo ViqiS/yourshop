@@ -9,7 +9,7 @@ export const initializeLocalStorage = () => {
   let parsedSignOut
 
   if (!accountInLocalStorage) {
-    localStorage.setItem('account', JSON.stringufy({}))
+    localStorage.setItem('account', JSON.stringify({}))
     parsedAccount = {}
   } else {
     parsedAccount = JSON.parse(accountInLocalStorage)
@@ -23,13 +23,13 @@ export const initializeLocalStorage = () => {
   }
 }
 
-
 export const ShoppingCartProvider = ({children}) => {
   // My account
   const [account, setAccount] = useState({})
 
-  // Sign Out
+  // Sign out
   const [signOut, setSignOut] = useState(false)
+
 
   //Shopping Cart - Increment quantity
   const [count, setCount] = useState(0)
@@ -132,7 +132,7 @@ export const ShoppingCartProvider = ({children}) => {
 
       searchByTitle,
       setSearchByTitle,
-      
+
       filteredItems,
       setFilteredItems,
 

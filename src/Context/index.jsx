@@ -2,7 +2,35 @@ import { createContext, useEffect, useState } from 'react'
 
 export const ShoppingCartContext = createContext()
 
+export const initializeLocalStorage = () => {
+  const accountInLocalStorage = localStorage.getItem('account')
+  const signOutInLocalStorage = localStorage.getItem('sign-out')
+  let parsedAccount
+  let parsedSignOut
+
+  if (!accountInLocalStorage) {
+    localStorage.setItem('account', JSON.stringufy({}))
+    parsedAccount = {}
+  } else {
+    parsedAccount = JSON.parse(accountInLocalStorage)
+  }
+
+  if (!signOutInLocalStorage) {
+    localStorage.setItem('sign-out', JSON.stringify(false))
+    parsedSignOut = false
+  } else {
+    parsedSignOut = JSON.parse(signOutInLocalStorage)
+  }
+}
+
+
 export const ShoppingCartProvider = ({children}) => {
+  // My account
+  const [account, setAccount] = useState({})
+
+  // Sign Out
+  const [signOut, setSignOut] = useState(false)
+
   //Shopping Cart - Increment quantity
   const [count, setCount] = useState(0)
 
@@ -23,6 +51,7 @@ export const ShoppingCartProvider = ({children}) => {
     description:"",
     images: [],
   });
+
 
   //Shopping cart - Add products to cart
   const [cartProducts, setCartProducts] = useState([])
@@ -80,26 +109,40 @@ export const ShoppingCartProvider = ({children}) => {
     <ShoppingCartContext.Provider value={{
       count, 
       setCount,
+
       openProductDetail,
       closeProductDetail,
       isProductDetailOpen,
+
       openCheckoutSideMenu,
       closeCheckoutSideMenu,
       isCheckoutSideMenuOpen,
+
       productToShow,
       setProductToShow,
+
       cartProducts,
       setCartProducts,
+
       order, 
       setOrder,
+
       items,
       setItems,
+
       searchByTitle,
       setSearchByTitle,
+      
       filteredItems,
       setFilteredItems,
+
       searchByCategory,
-      setSearchByCategory
+      setSearchByCategory,
+
+      account,
+      setAccount,
+      signOut,
+      setSignOut
 
     }}>
     {children}

@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ShoppingCartContext } from '../../Context'
 import { ShoppingBagIcon } from '@heroicons/react/24/solid'
+import ShoppingCart from '../ShoppingCart'
 
 const Navbar = () => {
   const context = useContext(ShoppingCartContext)
@@ -31,7 +32,7 @@ const Navbar = () => {
       return (
         <>
           <li className='text-black/60'>
-            mail@example.com
+          {parsedAccount?.email}
           </li>
           <li>
             <NavLink
@@ -143,15 +144,8 @@ const Navbar = () => {
         {renderView()}
         <li 
         className='flex items-center cursor-pointer'
-        onClick={(event) => {
-          if (context.isCheckoutSideMenuOpen) {
-            context.closeCheckoutSideMenu(); // Cierra el menú si está abierto
-          } else {
-            context.openCheckoutSideMenu(); // Abre el menú si está cerrado
-          }
-        }}>
-        <ShoppingBagIcon className='h-6 w-6 text-black'/> 
-        <div>{context.cartProducts.length}</div>
+        >
+        <ShoppingCart/>
         </li>
       </ul>
     </nav>

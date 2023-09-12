@@ -6,4 +6,4 @@ Además implementé [Tailwind](https://tailwindui.com/) para darle los estilos.
 
 Estoy segura de que hay muchas cosas por mejorar y voy a seguir aprendiendo para poder lograrlo👌.
 
-https://yourstorefake.netlify.app/sign-in
+[Click para ver la app](https://yourstorefake.netlify.app/)
